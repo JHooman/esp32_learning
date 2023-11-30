@@ -12,6 +12,8 @@
 #include "esp_timer.h"
 #include "esp_err.h"
 #include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 #define LEDC_TIMER              LEDC_TIMER_0
 #define LEDC_MODE               LEDC_LOW_SPEED_MODE
@@ -28,12 +30,13 @@
  */
 double t = 0;
 void onTimer(){
-    int T=5000;
+    int T=50000;
     t+=200;
     ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, (sin((2*M_PI*t)/T)+1)*4096);
 
     ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
-    //ESP_LOGI("Info","on TImer callback");
+    ESP_LOGI("Info","on TImer callback");
+    vTaskDelay(1);
 }
 
 static void example_ledc_init(void)
@@ -63,7 +66,7 @@ static void example_ledc_init(void)
 }
 void timer_pwm_init()
 {
-    esp_timer_init();
+    //esp_timer_init();
     esp_timer_create_args_t timer_args = {
         .callback = &onTimer,
         .dispatch_method = ESP_TIMER_TASK,
@@ -85,6 +88,6 @@ void app_main(void)
     ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
     timer_pwm_init();
     while(1){
- 
+        vTaskDelay(1);            
     };
 }
