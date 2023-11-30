@@ -35,7 +35,7 @@ void gpio_configure()
             .active_level = 0,
         },
     };
-
+    
     button_handle_t gpio_btn = iot_button_create(&gpio_btn_cfg);
     iot_button_register_cb(gpio_btn, BUTTON_PRESS_DOWN, button_hold, NULL);
 
