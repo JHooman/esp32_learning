@@ -94,12 +94,12 @@ void app_main(void)
     mpu6050_out odczyt;
     while (1)
     {
-        vTaskDelay(10);
+        vTaskDelay(5/ portTICK_PERIOD_MS);
         read_mpu(&odczyt);
-        printf("acce_x:%.2f, acce_y:%.2f, acce_z:%.2f\n", odczyt.acce.acce_x, odczyt.acce.acce_y, odczyt.acce.acce_z);
-        printf("gyro_x:%.2f, gyro_y:%.2f, gyro_z:%.2f\n", odczyt.gyro.gyro_x, odczyt.gyro.gyro_y, odczyt.gyro.gyro_z);
+        //printf("acce_x:%.2f, acce_y:%.2f, acce_z:%.2f\n", odczyt.acce.acce_x, odczyt.acce.acce_y, odczyt.acce.acce_z);
+        //printf("gyro_x:%.2f, gyro_y:%.2f, gyro_z:%.2f\n", odczyt.gyro.gyro_x, odczyt.gyro.gyro_y, odczyt.gyro.gyro_z);
         printf("roll: %.2f, pitch: %.2f\n",odczyt.angle.roll, odczyt.angle.pitch);
-        printf("temp: %.2f\n\n",odczyt.temp.temp);
+        //printf("temp: %.2f\n\n",odczyt.temp.temp);
     }
     
 }
